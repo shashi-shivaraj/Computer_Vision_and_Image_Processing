@@ -1,0 +1,6 @@
+This project contains code to render triangles provided by a PLY file (ascii).
+The program reads a PLY object filename and 3 rotation angles (degrees) as command line arguments.
+It then sets the camera position using the 3 rotation angles and render a 256 x 256 pixel image
+and saves it in PPM format.
+
+The program uses roation matrices and ray-plan intersection to render the image using triangles.
