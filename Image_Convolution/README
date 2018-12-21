@@ -1,0 +1,62 @@
+Name: Shashi Shivaraju
+email: shonnah@g.clemson.edu
+XID : C88650674
+
+Description :
+The project contains the program:  "convolve".
+The "convolve" program performs convolution operation using a filter with the input image..
+It uses OpenGL + GLUT to display the original and convoluted images.
+It uses OpenIO for image read/write operations.
+
+The code implements the basic requirements and extension.
+
+Usage and Features:
+1)Build the executables using Makefile.
+Open a terminal and set the path to the project directory.
+Use the commands: make clean;
+				  make;
+This will build the executables "convolve".
+
+2)Convolution with external Filter file (Basic Requirement)
+To perform convolution using the filter file
+for a image,use the below command:
+
+[Generic]:
+./[exe] [input.png] [filter.filt]
+./[exe] [input.png] [filter.filt] [optional out.png]
+
+eg:
+./convolve squares.png filter.filt
+./convolve squares.png filter.filt squares_filter.png
+
+Here,
+	a)The program will display the input image input.png in a window and
+		will store the kernel weights from the file filter.filt.
+
+	b)To perform convolution and display the convoluted image press 'c' or 'C' via keyboard.
+
+	c)To write the currently displayed image to a file,press 'w' or 'W'.
+		If output file name is not specified in cmdline,the program will prompt the user for  the file name.
+
+	d)Repeatedly pressing 'c' or 'C' will perform convolution repeatedly on the last convoluted image.
+
+	e)Press 'esc' key to close the display and exit from the program.
+
+3)Convolution with Gabor Filter(Extension)
+To perform convolution using the Gabor filter use :
+
+[Generic]:
+./[exe] [input.png] [-g] [theta] [sigma] [period]
+./[exe] [input.png] [-g] [theta] [sigma] [period][optional out.png]"
+
+eg:
+./convolve Lenna.png -g 0 4 4
+./convolve Lenna.png -g 0 4 4 Lenna_gabor_044.png
+
+Operations mentioned above in 2) can be used here too.
+
+Notes/Issues:
+1)Border of the convoluted image might vary from the convoluted image due to boundary condition handling.
+Differnces varies with type of filter choosen but prevents constant balck border.
+2)My two own kernels are named as "myown1.filt" and "myown2.filt"
+
