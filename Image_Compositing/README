@@ -1,0 +1,74 @@
+Name: Shashi Shivaraju
+email: shonnah@g.clemson.edu
+XID : C88650674
+
+Description :
+The project contains two programs:  "alphamask" and "compose" to preform image compositing using green screening.
+The "alphamask" program generates an alpha channel mask for image based upon its color info.
+The "compose" program uses the alpha channel information of a foreground image and 
+computes the over operator with the background image.It uses OpenGL + GLUT to display
+the composite image and OpenIO for image read/write operations.
+
+The code implements the basic requirements and extension.
+
+Usage and Features:
+1)Build the executables using Makefile.
+Open a terminal and set the path to the project directory.
+Use the commands: make clean;
+				  make;
+This will build the executables "alphamask" and "compose".
+
+2)Masking (Basic Requirement)
+To generate the alpha channel mask image("dhouse_fg.png")
+for the image "dhouse.png",use the below command:
+
+./alphamask dhouse.png dhouse_fg.png dhouse_config.txt
+
+Here,dhouse_config.txt is a text file with the HSV ranges to perform the alpha masking.
+[RANGE]:
+Hue 100 150
+Saturation 0.00 0.8
+Value 0.2 0.8
+
+To generate the alpha channel mask image("hand_fg.png")
+for the image "hand.jpg",use the below command:
+
+./alphamask hand.jpg hand_fg.png hand_config.txt
+
+Here,hand_config.txt is a text file with the HSV ranges to perform the alpha masking.
+[RANGE]:
+Hue 55 150
+Saturation 0.0 0.8
+Value 0.2 0.8
+ 
+Please note in the code, I have used an extended Hue range further to utilize full greyscale mask
+for alpha.
+
+3)Masking with Spill Suppression (Extension)
+To enable Spill Suppression along with the alpha masking,use the flag -ss as a 
+command line argument as shown below:
+
+./alphamask dhouse.png dhouse_fg_ss.png dhouse_config.txt -ss
+./alphamask hand.jpg hand_fg_ss.png hand_config.txt -ss
+
+To implement Spill Suppression,I have utilize the scheme to adjust
+the green channel as minimum of the three color channel (i.e. G = min(R,G,B)).
+
+4)Compositing (Basic Requirement)
+To generate and display the composite images using alphamasked foreground image and 
+any background image,please us the below commands:
+
+[To display in window and store result in output file]
+./compose dhouse_fg_ss.png dhouse_bg.jpg dhouse_comp.png
+./compose hand_fg_ss.png hand_bg.jpg hand_comp.png
+
+[To just display in window]
+./compose dhouse_fg_ss.png dhouse_bg.jpg
+./compose hand_fg_ss.png hand_bg.jpg
+
+User can also press the key 'w'/'W',to store the composite
+image by specifying the filename when prompted.   
+
+Notes/Issues:
+1)All the resulting images are included in the project file for reference.
+2)The program assumes that the foreground and background images have same dimensions in pixels.

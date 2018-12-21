@@ -1,0 +1,3 @@
+Hue 100 150
+Saturation 0.00 0.8
+Value 0.2 0.8
