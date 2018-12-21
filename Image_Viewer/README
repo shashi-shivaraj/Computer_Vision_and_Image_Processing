@@ -1,0 +1,58 @@
+Name: Shashi Shivaraju
+email: shonnah@g.clemson.edu
+XID : C88650674
+
+Description : 
+This program can be used to display and store the images.It uses OpenGL + GLUT
+to display the images and OpenIO for image read/write operations.
+It can also be used to demonstrate few pixel manipulation results.
+
+The code implements the basic requirements and three extensions.
+
+Usage and Features:
+
+1)Run the executable (Basic Requirement)
+	Open a terminal and set the path to the directory with the executable 'imgview'.
+	Run the executable as
+	a) ./imgview	
+		Displays an empty window of a size 600x600 pixels, with a black background.
+	b) ./imgview mario.png
+		Displays the image 'mario.png' in a window sized to exactly fit the image.
+
+2)Load an image (Basic Requirement)
+	Press the key ‘r’ or ‘R’,to enter the filename of the image.
+	Display will be updated to show the image file entered.
+
+3)Write an image (Basic Requirement)
+	Press the key ‘w’ or ‘W’,to enter the filename of the image to be stored.
+	The image being displayed in the window will be stored as an image filename entered.
+
+4)Color Inversion (Extension 1)
+	Press the 'i' or I to update the display with the colors of the image inverted.
+	Press 'w' or 'W' to store the display as file or 
+	Press 'i' or 'I' again to revert back to the original image.
+
+5)Load multiple images (Extension 2)
+	a) ./imgview cube.ppm teapot.jpg mario.png
+		Load multiple images by specifying multiple filenames at the command line.
+		Image cube.ppm will be displayed first.
+	b) Press 'r' or 'R' to load additional images one image at a time.
+
+	Use the left and right arrow keys to cycle between the images loaded 
+	and display will be updated with the current selected image. 
+	Press 'w' or 'W' to store the current display as a file.
+
+6)Monochannel Display(Extension 3)
+	Press '1' to display RED channel image.
+	Press '2' to display GREEN channel image.
+	Press '3' to display BLUE channel image.
+	Press 'w' or 'W' to store the current display as a image file with RGBA pixelmap data.
+	Press 'o' or 'O' to display the RGBA image.
+
+Notes/Issues:
+	1) All the images stored by user using 'w'option will store the image in RGBA format.
+		User will not have the option to specify the channel number while writing the displayed image to file.
+	2)Maximum images which can be loaded by the executable is set to 20 images.
+	  This can be modified by updating the macro MAX_IMAGES_SUPPORTED in the file 'imageview.h' by developer;
+	  
+	
