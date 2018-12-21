@@ -1,0 +1,85 @@
+Name: Shashi Shivaraju
+email: shonnah@g.clemson.edu
+XID : C88650674
+
+Description :
+The project contains the program:  "warper".
+The "warper" program performs warping based on affine and projective warps.
+It uses OpenGL + GLUT to display the warped image.
+It uses OpenIO for image read/write operations.
+
+The code implements the basic requirements and one extension.
+
+Usage and Features:
+1)Build the executables using Makefile.
+Open a terminal and set the path to the project directory.
+Use the commands: make clean;
+				  make;
+This will build the executables "warper".
+
+2)Warping with perspective warp method (Basic Requirement)
+To perform warping for a image,use the below command:
+
+[Generic]:
+./[exe] [input.png]
+./[exe] [input.png][optional out.png]
+
+eg:
+./warper squares.png
+./warper squares.png squares_warped.png
+
+Here,
+
+a)On execution the program will display a cmdline options to user to select the transfrom operations to be performed on the input image.
+
+[cmdline display]:
+enter 'n' for twirl warp; 'r' for rotate; 's' for scaling;
+'t' for translation;'h' for shear; 'f' for flipping; 'p' for perspective warp options; 'd' for done
+>
+
+b)For basic requirement the user can select the the combination of all the trasform options except 'n' for twirl warp.
+
+c)When the user has finished selecting the desired transfrom operations,he should indicate it by entering 'd'.
+On selecting 'd' the program will display the warped image in a window.
+If the optional output filename was specified ,it will store the warped image into a  file. 
+
+c)Press 'esc' key to close the display and exit from the program.
+
+3)Support a twirl warp(Extension)
+
+To perform twirl warp use :
+
+eg:
+./warper squares.png
+./warper squares.png squares_warped.png
+
+Here,
+a)On execution the program will display a cmdline options to user to select the transfrom operations to be performed on the input image.
+
+[cmdline display]:
+enter 'n' for twirl warp; 'r' for rotate; 's' for scaling;
+'t' for translation;'h' for shear; 'f' for flipping; 'p' for perspective warp options; 'd' for done
+>
+
+The user should select 'n' to enter into twirl warp mode and press 'd'.
+Then the user should enter the factors to determine the the center location for twirl to start
+and the strength of the twirl.
+
+eg:
+> n
+twirl warp selected;press d next
+> d
+Twirl Mode - enter factors :
+Center factor cx
+0.5
+Center factor cy
+0.5
+strength factor s
+7.5
+
+Notes/Issues:
+1)The implementation assumes the bottom left corner of the image as the origin.
+The no pixel is mapped in the output image to the input image then it will be set to white.
+
+2)If you need to observe the final forward map matrix and inverse map matrix,
+please enable the macro #undef DEBUG_MODE in the file manager.h
