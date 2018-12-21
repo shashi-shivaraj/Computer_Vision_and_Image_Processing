@@ -1,0 +1,74 @@
+Name: Shashi Shivaraju
+email: shonnah@g.clemson.edu
+XID : C88650674
+
+Description :
+The project contains the program:  "stegano".
+The "stegano" program performs Image Steganography.
+It uses OpenGL + GLUT to display the output images,
+i.e merged image or extracted secret image.
+It uses OpenImageIO for image read/write operations.
+
+The code implements the basic requirement (Default Method) 
+and the extension (Compression Method) as documented in the proposal.
+
+Usage and Features:
+1)Build the executables using Makefile.
+Open a terminal and set the path to the project directory.
+Use the commands: make clean;
+				  make;
+This will build the executable "stegano".
+
+2)Hiding the secret image in cover image
+To perform steganography in order to hide the secret image,use the below command:
+
+[Usage to Hide secret image:]
+	./stegano h mode cover.img secret.img hidden.png/bmp
+		
+Here:
+		mode = d for default steganography
+		mode = c for compression based steganography
+		cover.img & secret.img are input images
+		hidden.png/bmp is the output image.
+		
+3)Extracting the secret image from steganographed image
+To perform steganography in order to extract the secret image,use the below command:
+
+[Usage to Extract secret image:]
+	./stegano uh mode hidden.png/bmp cover.img secret.img
+		
+Here:
+		mode = d for default steganography
+		mode = c for compression based steganography
+		hidden.png/bmp is the input image
+		cover.img & secret.img are output images.
+		
+	NOTE:
+	1)In the above steps,the cover image and the secret image can be of any format which is 
+	supported by OpenImageIO,but the output hidden image should always be stored
+	as lossless image format such as png/bmp.
+	2) For a particular hidden image,hiding and extraction operations should be performed using the same mode. 
+
+
+Notes/Issues:
+
+1)Cover Image Scaling
+When the program is used with mode = d [default steganography] and the secret image dimension is larger than
+the cover image dimension,then scaling is performed on the cover image,so that the cover image matches the 
+dimension of the secret image.
+If the secret image dimension is lesser than the cover image dimension,then the cover image dimension 
+and secret image dimension remains unaltered.
+(Merged output image will have the dimension of the cover image).
+
+2)Compression Based Steganography
+Huffman Algorithm is implemented to perform image compression and the degree of compression
+varies among images as compression depends on the image contents and image dimension.
+If the cover image is not able to accommodate the size of the compressed secret image 
+during hiding operation (i.e one byte of compressed secret image in one RGB pixel of cover image),
+than the program will display an console message informing the same and a black window will be displayed. 
+Alternatively the user can use Default steganography in this case. 
+
+3)Please refer the report for the implementation details of this Steganography tool.
+
+4)Please enable the Macro #undef DEBUG_MODE in the file manager.h to print all console logs and 
+store the huffman codec dumps into files.
