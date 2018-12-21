@@ -1,0 +1,20 @@
+Name: Shashi Shivaraju
+email: shonnah@g.clemson.edu
+XID : C88650674
+
+Description :
+The project contains the program:  "rotating_planet".
+The "rotating_planet" program uses OpenGL to display a blue colored rotating planet.
+
+Usage and Features:
+1)Build the executables using Makefile.
+Open a terminal and set the path to the project directory.
+Use the commands: make clean;
+				  make;
+This will build the executable "rotating_planet".
+
+2)Usage
+To run the program,use the below command:
+./rotating_planet
+
+This will open a window displaying a blue colored rotating planet.
