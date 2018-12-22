@@ -1,0 +1,8 @@
+Segmenting foods on a dinner plate
+Developed an Win32 Application which can load image and in which the user segments the food items by using the below options -
+a) left-click to draw a contour around a food item that will automatically shrinks to wrap to
+the food boundary.
+b)right-click a point within a food item that will automatically
+grow a contour to its outer boundary.
+c)shift-click to manually drag a contour point to a new location.
+Segmentation was achieved using Rubber Band , Balloon and Neutral Size Active Contour Models.

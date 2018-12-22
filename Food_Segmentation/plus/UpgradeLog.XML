@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="plus">
+</Property><Property Name="Solution File" Value="D:\MS\Clemson_2017\Clemson_ECE_C88650674\ECE_6310_Intro_to_CV\Class_12\lab4\code_shashi\plus\plus.sln">
+</Property><Property Name="User Options File" Value="D:\MS\Clemson_2017\Clemson_ECE_C88650674\ECE_6310_Intro_to_CV\Class_12\lab4\code_shashi\plus\plus.suo">
+</Property><Property Name="Date" Value="16 October 2017">
+</Property><Property Name="Time" Value="23:00">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="plus.sln" Description="File successfully backed up as D:\MS\Clemson_2017\Clemson_ECE_C88650674\ECE_6310_Intro_to_CV\Class_12\lab4\code_shashi\plus\plus.sln.old">
+</Event><Event ErrorLevel="0" Project="" Source="plus.suo" Description="File successfully backed up as D:\MS\Clemson_2017\Clemson_ECE_C88650674\ECE_6310_Intro_to_CV\Class_12\lab4\code_shashi\plus\plus.suo.old">
+</Event><Event ErrorLevel="0" Project="plus" Source="plus.vcproj" Description="Converting project file 'D:\MS\Clemson_2017\Clemson_ECE_C88650674\ECE_6310_Intro_to_CV\Class_12\lab4\code_shashi\plus\plus.vcproj'.">
+</Event><Event ErrorLevel="1" Project="plus" Source="plus.vcproj" Description="This application has been updated to include settings related to the User Account Control (UAC) feature of Windows Vista. By default, when run on Windows Vista with UAC enabled, this application is marked to run with the same privileges as the process that launched it. This marking also disables the application from running with virtualization. You can change UAC related settings from the Property Pages of the project.">
+</Event><Event ErrorLevel="1" Project="plus" Source="plus.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="plus" Source="plus.vcproj" Description="Web deployment to the local IIS server is no longer supported. The Web Deployment build tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="plus" Source="plus.vcproj" Description="MSB8012: $(TargetPath) ('D:\MS\Clemson_2017\Clemson_ECE_C88650674\ECE_6310_Intro_to_CV\Class_12\lab4\code_shashi\plus\.\Debug\plus.exe') does not match the Linker's OutputFile property value '.\Debug/plus.exe' ('D:\MS\Clemson_2017\Clemson_ECE_C88650674\ECE_6310_Intro_to_CV\Class_12\lab4\code_shashi\plus\Debug/plus.exe') in project configuration 'Debug|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Link.OutputFile).">
+</Event><Event ErrorLevel="1" Project="plus" Source="plus.vcproj" Description="MSB8012: $(TargetPath) ('D:\MS\Clemson_2017\Clemson_ECE_C88650674\ECE_6310_Intro_to_CV\Class_12\lab4\code_shashi\plus\.\Release\plus.exe') does not match the Linker's OutputFile property value '.\Release/plus.exe' ('D:\MS\Clemson_2017\Clemson_ECE_C88650674\ECE_6310_Intro_to_CV\Class_12\lab4\code_shashi\plus\Release/plus.exe') in project configuration 'Release|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Link.OutputFile).">
+</Event><Event ErrorLevel="0" Project="plus" Source="plus.vcproj" Description="Done converting to new project file 'D:\MS\Clemson_2017\Clemson_ECE_C88650674\ECE_6310_Intro_to_CV\Class_12\lab4\code_shashi\plus\plus.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="plus" Source="plus.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="plus.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="plus.sln" Description="Converted">
+</Event></UpgradeLog>

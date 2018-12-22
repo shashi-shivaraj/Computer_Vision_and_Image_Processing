@@ -1,0 +1,274 @@
+void RubberBandActiveContourAlgo(unsigned char *image,unsigned char *sobel_image,contour_position* contour_head,int ROW,int COL)
+{
+	contour_position *curr_cont = NULL,*next_cont = NULL;
+	float *internal_energy_1 = NULL;/*To find square of distance between contour points*/
+	float *internal_energy_2 = NULL;/*To find square of (avrg contour distance - distance between contour points)*/
+	float *external_energy = NULL;/*To find the image gradient magnitude*/
+	float *total_energy = NULL;/*To find the total enrgy in 7x7 window*/
+	float ext_eng =0,int_eng1 = 0,int_eng2 = 0,total_eng = 0;
+	int i=0,j=0,count=0,r1=0,c1=0;
+	int contour_head_xpos = 0,contour_head_ypos = 0;
+	int cur_xpos = 0,cur_ypos = 0,next_xpos = 0,next_ypos = 0,index = 0;
+	float avrg_contour_distance = 0,distance_square = 0,distance_diff_square = 0;
+
+	float max_energy1 = 0,min_energy1 = 0,max_energy2 = 0,min_energy2 = 0;
+	float max_ext_energy = 0,min_ext_energy = 0,sobel_pixel_square = 0; 
+	float min_total_energy = 0,energy1_range = 0,energy2_range = 0,ext_energy_range = 0,ext_energy_2_range = 0;
+
+	float *external_energy_2 = NULL,max_ext_eng_2 = 0,min_ext_eng_2 = 0,ext_energy_2 = 0;/*To find the image intensity variance*/
+	float intensity_sum = 0,intensity_mean = 0,variance = 0;
+	
+
+	internal_energy_1 = (float*)calloc(LEFT_CLICK_WINDOW*LEFT_CLICK_WINDOW,sizeof(float));
+	if(!internal_energy_1)
+	{
+		printf("memory allocation failed\n");
+		return;
+	}
+
+	internal_energy_2 = (float*)calloc(LEFT_CLICK_WINDOW*LEFT_CLICK_WINDOW,sizeof(float));
+	if(!internal_energy_2)
+	{
+		printf("memory allocation failed\n");
+		return;
+	}
+
+	external_energy = (float*)calloc(LEFT_CLICK_WINDOW*LEFT_CLICK_WINDOW,sizeof(float));
+	if(!external_energy)
+	{
+		printf("memory allocation failed\n");
+		return;
+	}
+
+	external_energy_2 = (float*)calloc(LEFT_CLICK_WINDOW*LEFT_CLICK_WINDOW,sizeof(float));
+	if(!external_energy_2)
+	{
+		printf("memory allocation failed\n");
+		return;
+	}
+
+	total_energy = (float*)calloc(LEFT_CLICK_WINDOW*LEFT_CLICK_WINDOW,sizeof(float));
+	if(!total_energy)
+	{
+		printf("memory allocation failed\n");
+		return;
+	}
+
+	for(i=0;i<ROW*COL;i++)
+	{
+		sobel_pixel_square = SQR(sobel_image[i]);
+		if(!i || sobel_pixel_square < min_ext_energy)
+			min_ext_energy = sobel_pixel_square;
+
+		if(!i|| sobel_pixel_square > max_ext_energy)
+			max_ext_energy = sobel_pixel_square;
+
+	}
+
+	for(i=0;i<1;i++)
+	{
+		contour_head_xpos = contour_head->x_pos;
+		contour_head_ypos = contour_head->y_pos;
+
+		/*To calculate the average distance between the contour points*/
+			CalculateAverageContourDistance(contour_head,&avrg_contour_distance);
+
+		/*To calculate the internal energies and
+		external energy at each contour point around 7x7 pixel window*/
+		curr_cont = next_cont = contour_head;
+		while(next_cont)
+		{	
+
+			curr_cont = next_cont;
+			next_cont = curr_cont->next;
+
+			cur_xpos = curr_cont->x_pos;
+			cur_ypos = curr_cont->y_pos;
+
+			if(next_cont)
+			{
+				next_xpos = next_cont->x_pos;
+				next_ypos = next_cont->y_pos;
+			}
+			else /*Assume the last contour point connects first contour point*/
+			{
+				next_xpos = contour_head_xpos;
+				next_ypos = contour_head_ypos;
+			}
+
+			count = 0;
+			for(r1=-(LEFT_CLICK_WINDOW/2);r1<=(LEFT_CLICK_WINDOW/2);r1++)
+			{
+				 for(c1=-(LEFT_CLICK_WINDOW/2);c1<=(LEFT_CLICK_WINDOW/2);c1++)
+				 {
+					/*Internal Energy 1
+					(Square of distance between contour points)*/
+					distance_square = SQR(next_xpos-(cur_xpos+c1))+\
+						SQR(next_ypos-(cur_ypos+r1));
+					internal_energy_1[count] = distance_square;
+
+					if(!count|| distance_square < min_energy1)
+						min_energy1 = distance_square;
+
+					if(!count|| distance_square > max_energy1)
+						max_energy1 = distance_square;
+
+					/*Internal Energy 2
+					(Square of difference between average contour distance
+					and the distance between current contour points )*/
+					distance_diff_square = SQR(avrg_contour_distance - sqrt(distance_square));
+					internal_energy_2[count] = distance_diff_square;
+
+					if(!count || distance_diff_square < min_energy2)
+						min_energy2 = distance_diff_square;
+
+					if(!count|| distance_diff_square > max_energy2)
+						max_energy2 = distance_diff_square;
+
+					/*External Energy
+					(Square of the image gradient magnitude(Sobel convoluted image))*/
+					convert_height_width2index(&index,ROW,COL,cur_xpos+c1,cur_ypos+r1);
+					sobel_pixel_square = SQR(sobel_image[index]);
+					external_energy[count] = sobel_pixel_square;
+
+					/*External Energy 2
+					(Variance of the image intensity)*/
+					intensity_sum = intensity_sum + image[index];
+
+					count ++;
+				 }
+			}
+			
+			count = 0;
+			intensity_mean = intensity_sum/(LEFT_CLICK_WINDOW*LEFT_CLICK_WINDOW);
+
+
+			for(r1=-(LEFT_CLICK_WINDOW/2);r1<=(LEFT_CLICK_WINDOW/2);r1++)
+			{
+				 for(c1=-(LEFT_CLICK_WINDOW/2);c1<=(LEFT_CLICK_WINDOW/2);c1++)
+				 {
+					convert_height_width2index(&index,ROW,COL,cur_xpos+c1,cur_ypos+r1);
+					variance = SQR(image[index]- intensity_mean);
+					external_energy_2[count] = variance;
+
+					if(!count || variance < min_ext_eng_2)
+						min_ext_eng_2 = variance;
+
+					if(!count|| variance > max_ext_eng_2)
+						max_ext_eng_2 = variance;
+
+					count ++;
+
+				 }
+			}
+
+			count = 0;min_total_energy = 0;
+			ext_eng =0;ext_energy_2 = 0;int_eng1 = 0;int_eng2 = 0;total_eng = 0;
+
+			/*Normalise the individual energies and find total energy*/
+			energy1_range	  = max_energy1 - min_energy1;
+			energy2_range	  = max_energy2 - min_energy2;  
+			ext_energy_range  = max_ext_energy - min_ext_energy;
+			ext_energy_2_range = max_ext_eng_2 - min_ext_eng_2;
+
+			for(j=0;j<(SQR(LEFT_CLICK_WINDOW));j++)
+			{
+				int_eng1 = ((internal_energy_1[j]-min_energy1)/energy1_range)*1;
+				int_eng2 = ((internal_energy_2[j]-min_energy2)/energy2_range)*1;
+				ext_eng = ((external_energy[j]-min_ext_energy)/ext_energy_range)*1;
+				ext_energy_2 = ((external_energy_2[j]-min_ext_eng_2)/ext_energy_2_range)*1;
+				
+				total_eng = int_eng1+int_eng2-ext_eng-ext_energy_2;
+				total_energy[j] = total_eng;
+				if(!j || total_eng < min_total_energy)
+				{
+						min_total_energy = total_eng;
+						count = j;/*location of lowest total energy in window*/
+				}
+			}
+			
+			/*udpate the new contour position to the lowest total energy location in 7x7 window*/
+			convert_index2height_width(count,LEFT_CLICK_WINDOW,LEFT_CLICK_WINDOW,&next_xpos,&next_ypos);
+			curr_cont->last_x_pos = curr_cont->x_pos;
+			curr_cont->last_y_pos = curr_cont->y_pos;
+
+			if(next_xpos>(LEFT_CLICK_WINDOW/2))
+				curr_cont->x_pos = curr_cont->x_pos + (next_xpos-(LEFT_CLICK_WINDOW/2));
+			else if(next_xpos<(LEFT_CLICK_WINDOW/2))
+				curr_cont->x_pos = curr_cont->x_pos - (next_xpos+(LEFT_CLICK_WINDOW/2));
+
+			if(next_ypos>(LEFT_CLICK_WINDOW/2))
+				curr_cont->y_pos = curr_cont->y_pos + (next_ypos-(LEFT_CLICK_WINDOW/2));
+			else if(next_ypos<(LEFT_CLICK_WINDOW/2))
+				curr_cont->y_pos = curr_cont->y_pos + (next_ypos-(LEFT_CLICK_WINDOW/2));
+
+			 convert_height_width2index(&curr_cont->index,ROW,COL,curr_cont->x_pos,curr_cont->y_pos);
+
+#ifdef DEBUG_MODE
+
+			printf("internal_energy 1 is :\n");
+			for(i = 0;i<7*7;i++)
+			{
+				if(!(i%7) && i!=0)
+					printf("\n");
+				printf("%.2f\t",internal_energy_1[i]);
+			}
+			printf("\n");
+
+			printf("internal_energy 2 is :\n");
+			for(i = 0;i<7*7;i++)
+			{
+				if(!(i%7) && i!=0)
+					printf("\n");
+				printf("%.2f\t",internal_energy_2[i]);
+			}
+			printf("\n");
+
+			printf("external_energy is :\n");
+			for(i = 0;i<7*7;i++)
+			{
+				if(!(i%7) && i!=0)
+					printf("\n");
+				printf("%.2f\t",external_energy[i]);
+			}
+			printf("\n");
+
+			printf("total_energy is :\n");
+			for(i = 0;i<7*7;i++)
+			{
+				if(!(i%7) && i!=0)
+					printf("\n");
+				printf("%.2f\t",total_energy[i]);
+			}
+			printf("\n");
+
+#endif 
+
+		}
+	}
+	
+	/*Deallocate the memory*/
+	if(internal_energy_1)
+	{
+		free(internal_energy_1);
+		internal_energy_1 = NULL;
+	}
+
+	if(internal_energy_2)
+	{
+		free(internal_energy_2);
+		internal_energy_2 = NULL;
+	}
+
+	if(external_energy)
+	{
+		free(external_energy);
+		external_energy = NULL;
+	}
+
+	if(total_energy)
+	{
+		free(total_energy);
+		total_energy = NULL;
+	}
+}

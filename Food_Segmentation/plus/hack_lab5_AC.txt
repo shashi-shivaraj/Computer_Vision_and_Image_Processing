@@ -1,0 +1,61 @@
+update_contour_display(head,ROWS,COLS,labels,Thread_index,eErase);
+	destroy_list(head);
+	head = NULL;
+
+	/*Read the locations of the intial countour points*/    
+    fp = fopen("D:/MS/Clemson_2017/Clemson_ECE_C88650674/ECE_6310_Intro_to_CV/Class_15/lab5/code_shashi/hawk_init.txt","r");        /*open input ground truth file provided as cmd line arg*/
+    if(!fp)                         /*error handling*/
+    {
+	 printf("fopen failed ");/*failure to open the input file*/
+	 return -1;              /*return error code*/	
+    }
+
+
+
+	
+	count = 0;
+	while(0<fscanf(fp,"%d %d ",&cont_col,&cont_row))/*will exit at EOF or fscanf error*/
+	{
+		printf("Contour Col = %d Contour Row = %d\n",cont_col,cont_row);
+		count ++;
+		convert_height_width2index(&index,ROWS,COLS,
+								cont_col,cont_row);
+
+/*Store each point of the contour drawn by the user*/
+					new_data = (contour_position*)malloc(sizeof(contour_position));
+					if(!new_data)
+					{
+						printf("memory allocation failed");
+						return NULL;
+					}
+					memset(new_data,0,sizeof(contour_position));
+
+					new_data->Count = count;
+					count ++;
+					new_data->y_pos = cont_row;
+					new_data->x_pos = cont_col;
+					convert_height_width2index(&new_data->index,ROWS,COLS,
+						new_data->x_pos,new_data->y_pos);
+
+					if(!head)
+					{
+						head= new_data;
+						head->prev = NULL;
+						head->Thread_index = thread_count;
+					}
+
+					if(prev_data)
+					{
+						prev_data->next = new_data;
+						new_data->prev = prev_data;
+					}
+
+					new_data->next = NULL;
+					prev_data = new_data;
+	}
+
+	
+
+
+
+

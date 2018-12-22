@@ -1,0 +1,4 @@
+WM_LBUTTONDOWN detected
+WM_LBUTTONUP detected
+WM_LBUTTONDOWN detected
+WM_LBUTTONUP detected
