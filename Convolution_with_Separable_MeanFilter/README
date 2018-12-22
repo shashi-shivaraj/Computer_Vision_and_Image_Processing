@@ -1,0 +1,1 @@
+Image smoothing using 7x7 Mean filter by performing convolution by separable filters along with a sliding window.
