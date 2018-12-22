@@ -1,0 +1,2 @@
+Interactive region growing Win32 application which allows the user to click any location in an image and
+visualize the results of growing a region to perform segmentation.

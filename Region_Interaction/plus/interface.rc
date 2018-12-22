@@ -1,0 +1,165 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+ID_MAIN_MENU MENU 
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "&Load Image",                 ID_FILE_LOAD
+        MENUITEM SEPARATOR
+        MENUITEM "&Quit",                       ID_FILE_QUIT
+    END
+    POPUP "Display"
+    BEGIN
+        MENUITEM "Show pixel coordinates",      ID_SHOWPIXELCOORDS
+    END
+    POPUP "Options"
+    BEGIN
+        POPUP "Mode"
+        BEGIN
+            MENUITEM "Play [1ms periodically]",     ID_MODE_PLAY
+            MENUITEM "Step [press key 'j']",        ID_MODE_STEP
+        END
+        POPUP "Colour"
+        BEGIN
+            MENUITEM "Red",                         ID_COLOUR_RED
+            MENUITEM "Green",                       ID_COLOUR_GREEN
+            MENUITEM "Blue",                        ID_COLOUR_BLUE
+        END
+        POPUP "Predicates"
+        BEGIN
+            MENUITEM "Intensity",                   ID_PREDICATES_PIXELINTENSITY
+            MENUITEM "Distance",                    ID_PREDICATES_PIXELDISTANCE
+        END
+        MENUITEM "Reset",                       ID_OPTIONS_RESET
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+ID_PLUS_ICON            ICON                    "icon1.ico"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) (unknown sub-lang: 0x10) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENN)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, 0x10
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 376
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 134
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG1 DIALOGEX 0, 0, 383, 141
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+EXSTYLE WS_EX_TRANSPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "OK",IDC_BUTTON_OK,102,120,50,14
+    PUSHBUTTON      "Cancel",IDC_BUTTON_CANCEL,213,120,50,14
+    CTEXT           "Intensity Predicate",IDC_STATIC,82,47,80,12,WS_BORDER
+    CTEXT           "Distance Predicate",IDC_STATIC,79,87,83,12,WS_BORDER
+    EDITTEXT        IDC_NUM_INT,196,47,71,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_NUM_DIST,197,86,69,12,ES_AUTOHSCROLL | ES_NUMBER
+    CTEXT           "Enter Predicate Values",IDC_STATIC,117,7,116,10,WS_BORDER
+    LTEXT           "Max Difference of Average Intensity of Region and Individual Pixel Intensity for the pixel to join the region",IDC_STATIC,19,34,343,9
+    LTEXT           "Max Distance between Centroid of Region and position of Individual Pixel for the pixel to join the region",IDC_STATIC,19,73,332,9
+END
+
+#endif    // English (U.S.) (unknown sub-lang: 0x10) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
