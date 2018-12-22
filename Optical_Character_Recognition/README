@@ -1,0 +1,5 @@
+Project : Optical Character Recognition
+Implemented Matched-Spatial Filter (normalized cross-­correlation) to recognize letters in an image containing text.
+Further implemented thinning, branch-point and endpoint detection algorithms to recognize the characters in the input image .
+Using ground-truth data provided, True Positive Rate (TPR) and False Positive Rate (FPR) is calculated and Receiver Operating Characteristic (ROC) is constructed with system variable as threshold pixel value used to determine the initial character template detection and optimal system variable is determined.
+
