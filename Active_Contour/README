@@ -1,0 +1,4 @@
+Active Contour Algorithm
+Implemented an active contour algorithm based on criteria’s to achieve semi-automated method of segmentation.
+Utilized Sobel filter to determine the edges of the objects in a image and used the concept of internal energy 
+and external energy to move the initial contour to segment the objects in the image. 
