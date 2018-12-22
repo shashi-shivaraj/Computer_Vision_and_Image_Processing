@@ -1,0 +1,6 @@
+Region lable:1 Region Size:61 GreyScale Colour 40,Avg Surface normal for region: x:2.353620 y:-18.863245 z:6.426522
+Region lable:2 Region Size:762 GreyScale Colour 70,Avg Surface normal for region: x:12.585457 y:0.573014 z:4.712715
+Region lable:3 Region Size:494 GreyScale Colour 100,Avg Surface normal for region: x:-3.376598 y:2.247218 z:4.630016
+Region lable:4 Region Size:5166 GreyScale Colour 130,Avg Surface normal for region: x:0.670635 y:-9.689867 z:3.108285
+Region lable:5 Region Size:259 GreyScale Colour 160,Avg Surface normal for region: x:0.910146 y:-8.445290 z:2.405730
+Region lable:6 Region Size:532 GreyScale Colour 190,Avg Surface normal for region: x:-10.239258 y:1.505498 z:7.249829

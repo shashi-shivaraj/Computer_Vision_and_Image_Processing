@@ -1,0 +1,4 @@
+Range Image Segmentation:
+Implemented an algorithm to segment a range image based upon surface normals. 
+The range image is threshold-ed and the pixels of the range image into 3D coordinates using which surface normals for the image are calculated.
+Queue-based region growing is used to segment regions using Orientation of the normals as a predicate to join the region.
