@@ -6,8 +6,8 @@ public:
   FrameGenerator(SDL_Renderer*, SDL_Window*, int, int, const std::string&);
   void makeFrame();
 private:
-  SDL_Renderer* const renderer;
-  SDL_Window* const window;
+  SDL_Renderer*  const renderer;
+  SDL_Window* const  window;
   const int WIDTH;
   const int HEIGHT;
   const std::string USERNAME;

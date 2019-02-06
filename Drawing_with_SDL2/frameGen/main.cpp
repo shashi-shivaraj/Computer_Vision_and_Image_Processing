@@ -2,11 +2,12 @@
 #include <SDL2/SDL.h>
 #include <SDL_ttf.h>
 #include "frameGenerator.h"
+#include "circle.h"
 
-const std::string TITLE = "Ian Burch's Bullseyes";
-const std::string NAME = "malloy";
+const std::string TITLE = "shashi-shivaraju's design";
+const std::string NAME = "shashi-shivaraju";
 
-const int WIDTH = 640;
+const int WIDTH = 720;
 const int HEIGHT = 480;
 
 void drawCircle(SDL_Renderer* renderer,
@@ -30,7 +31,7 @@ void writeName(SDL_Renderer* renderer) {
   if (font == NULL) {
     throw std::string("error: font not found");
   }
-  SDL_Color textColor = {0xff, 0, 0, 0};
+  SDL_Color textColor = {0, 0, 0, 0};
   SDL_Surface* surface = 
     TTF_RenderText_Solid(font, TITLE.c_str(), textColor);
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -42,6 +43,40 @@ void writeName(SDL_Renderer* renderer) {
 
   SDL_RenderCopy(renderer, texture, NULL, &dst);
   SDL_DestroyTexture(texture);
+  TTF_CloseFont(font);
+}
+
+
+void createArt(SDL_Window* window,SDL_Renderer* renderer,int width,int height)
+{
+	//create an circle object
+    point cen(width/2,height/2);
+    color blk(0,0,0,255);
+    
+    //draw exterior circle
+    circle circleGen(renderer, window, 200,cen,blk);
+    circleGen.draw();
+    std::cout<<"circle info: "<<std::endl;
+    circleGen<<std::cout;
+    
+    //draw interior circle
+	circleGen.setparams(140,cen,blk);
+	circleGen.draw();	
+	std::cout<<"circle info: "<<std::endl;
+    circleGen<<std::cout;
+    
+    int rad =(200-140)/2;
+    //draw overlapping circles
+    for(float theta = 0;theta<1.99*pi;theta = theta+0.03125)
+	{
+		int dx = (140+rad) * std::cos(theta) + width/2;
+		int dy = (140+rad) * std::sin(theta) + height/2; 
+		
+		cen.x_pos = dx;
+		cen.y_pos = dy;
+		circleGen.setparams(rad,cen,blk);
+		circleGen.draw();	
+	} 
 }
 
 
@@ -59,6 +94,7 @@ int main(void) {
       HEIGHT,
       SDL_WINDOW_SHOWN
     );
+    
     // Apparently we can't use hardware acceleration with
     // SDL_GetWindowSurface
     SDL_Renderer* renderer = SDL_CreateRenderer( 
@@ -68,13 +104,17 @@ int main(void) {
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
     SDL_RenderClear(renderer);
 
-    SDL_Point center = {320, 240};
-    SDL_Color red = {255,0,0,255};
-    drawCircle(renderer, center, 50, red);
+   // SDL_Point center = {640, 360};
+    //SDL_Color black = {0,0,0,255};
+  //  drawCircle(renderer, center, 50, black);
+  
+  
+    createArt(window,renderer,WIDTH,HEIGHT);
 
     writeName(renderer);
     SDL_RenderPresent(renderer);
     FrameGenerator frameGen(renderer, window, WIDTH, HEIGHT, NAME);
+    //FrameGenerator frameGen2 = frameGen;
     frameGen.makeFrame();
 
     SDL_Event event;
@@ -90,6 +130,7 @@ int main(void) {
   }
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
+  TTF_Quit(); 
   SDL_Quit();
   }
   catch (const std::string& msg) { std::cout << msg << std::endl; }

@@ -8,6 +8,7 @@ LDFLAGS = `sdl2-config --libs` -lm -lSDL2_ttf
 
 OBJS = \
   frameGenerator.o \
+  circle.o\
   main.o
 
 EXEC = run
