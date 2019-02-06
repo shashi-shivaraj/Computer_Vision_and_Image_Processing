@@ -53,24 +53,27 @@ void createArt(SDL_Window* window,SDL_Renderer* renderer,int width,int height)
     point cen(width/2,height/2);
     color blk(0,0,0,255);
     
+    int rad_circle1 = 200;
+    int rad_circle2 = 140;
+    
     //draw exterior circle
-    circle circleGen(renderer, window, 200,cen,blk);
+    circle circleGen(renderer, window, rad_circle1,cen,blk);
     circleGen.draw();
     std::cout<<"circle info: "<<std::endl;
     circleGen<<std::cout;
     
     //draw interior circle
-	circleGen.setparams(140,cen,blk);
+	circleGen.setparams(rad_circle2,cen,blk);
 	circleGen.draw();	
 	std::cout<<"circle info: "<<std::endl;
     circleGen<<std::cout;
     
-    int rad =(200-140)/2;
+    int rad =(rad_circle1-rad_circle2)/2;
     //draw overlapping circles
     for(float theta = 0;theta<1.99*pi;theta = theta+0.03125)
 	{
-		int dx = (140+rad) * std::cos(theta) + width/2;
-		int dy = (140+rad) * std::sin(theta) + height/2; 
+		int dx = (rad_circle2+rad) * std::cos(theta) + width/2;
+		int dy = (rad_circle2+rad) * std::sin(theta) + height/2; 
 		
 		cen.x_pos = dx;
 		cen.y_pos = dy;
