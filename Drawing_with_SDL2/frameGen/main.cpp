@@ -3,12 +3,13 @@
 #include <SDL_ttf.h>
 #include "frameGenerator.h"
 #include "circle.h"
+#include "triangle.h"
 
 const std::string TITLE = "shashi-shivaraju's design";
-const std::string NAME = "shashi-shivaraju";
+const std::string NAME = "shonnah";
 
-const int WIDTH = 720;
-const int HEIGHT = 480;
+const int WIDTH = 800;
+const int HEIGHT = 600;
 
 void drawCircle(SDL_Renderer* renderer,
   SDL_Point center, int radius, SDL_Color color) {
@@ -53,8 +54,8 @@ void createArt(SDL_Window* window,SDL_Renderer* renderer,int width,int height)
     point cen(width/2,height/2);
     color blk(0,0,0,255);
     
-    int rad_circle1 = 200;
-    int rad_circle2 = 140;
+    int rad_circle1 = 250;
+    int rad_circle2 = 190;
     
     //draw exterior circle
     circle circleGen(renderer, window, rad_circle1,cen,blk);
@@ -68,6 +69,10 @@ void createArt(SDL_Window* window,SDL_Renderer* renderer,int width,int height)
 	std::cout<<"circle info: "<<std::endl;
     circleGen<<std::cout;
     
+    SDL_SetRenderDrawColor(renderer, 255, blk.g, blk.b, blk.a);
+    SDL_RenderDrawPoint(renderer, cen.x_pos , cen.y_pos);
+    
+    
     int rad =(rad_circle1-rad_circle2)/2;
     //draw overlapping circles
     for(float theta = 0;theta<1.99*pi;theta = theta+0.03125)
@@ -79,7 +84,17 @@ void createArt(SDL_Window* window,SDL_Renderer* renderer,int width,int height)
 		cen.y_pos = dy;
 		circleGen.setparams(rad,cen,blk);
 		circleGen.draw();	
-	} 
+	}
+	
+	//draw verticle triangle
+	point ver1((width/2)-rad_circle2,height/2);
+	point ver2((width/2)+rad_circle2,height/2);
+	point ver3(width/2,(height/2)-rad_circle2);
+	triangle triangleGen(renderer, window, ver1,ver2,ver3,blk);
+	std::cout << triangleGen;
+    
+	
+	 
 }
 
 
