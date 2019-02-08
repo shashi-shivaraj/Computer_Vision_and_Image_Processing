@@ -52,49 +52,44 @@ void createArt(SDL_Window* window,SDL_Renderer* renderer,int width,int height)
 {
 	//create an circle object
     point cen(width/2,height/2);
-    color blk(0,0,0,255);
+    color col(0,0,0,255);
     
-    int rad_circle1 = 250;
-    int rad_circle2 = 190;
+    int rad_circle = 200;
     
     //draw exterior circle
-    circle circleGen(renderer, window, rad_circle1,cen,blk);
-    circleGen.draw();
-    std::cout<<"circle info: "<<std::endl;
-    circleGen<<std::cout;
-    
-    //draw interior circle
-	circleGen.setparams(rad_circle2,cen,blk);
+    circle circleGen(renderer, window, rad_circle,cen,col);
 	circleGen.draw();	
 	std::cout<<"circle info: "<<std::endl;
     circleGen<<std::cout;
     
-    SDL_SetRenderDrawColor(renderer, 255, blk.g, blk.b, blk.a);
-    SDL_RenderDrawPoint(renderer, cen.x_pos , cen.y_pos);
+    //draw intersceting circles
+   col.r = 255; col.g = col.b = 0;col.a =255 ;
+   cen.y_pos = cen.y_pos + rad_circle;
+   circleGen.setparams(rad_circle,cen,col);
+   circleGen.draw();
+   std::cout<<"circle info: "<<std::endl;
+    circleGen<<std::cout;
     
+   cen.y_pos = height/2 - rad_circle;
+   circleGen.setparams(rad_circle,cen,col);
+   circleGen.draw();
+   std::cout<<"circle info: "<<std::endl;
+    circleGen<<std::cout;
     
-    int rad =(rad_circle1-rad_circle2)/2;
-    //draw overlapping circles
-    for(float theta = 0;theta<1.99*pi;theta = theta+0.03125)
-	{
-		int dx = (rad_circle2+rad) * std::cos(theta) + width/2;
-		int dy = (rad_circle2+rad) * std::sin(theta) + height/2; 
-		
-		cen.x_pos = dx;
-		cen.y_pos = dy;
-		circleGen.setparams(rad,cen,blk);
-		circleGen.draw();	
-	}
-	
-	//draw verticle triangle
-	point ver1((width/2)-rad_circle2,height/2);
-	point ver2((width/2)+rad_circle2,height/2);
-	point ver3(width/2,(height/2)-rad_circle2);
-	triangle triangleGen(renderer, window, ver1,ver2,ver3,blk);
-	std::cout << triangleGen;
+   cen.x_pos = width/2 - rad_circle;
+   cen.y_pos = height/2;
+   circleGen.setparams(rad_circle,cen,col);
+   circleGen.draw();
+   std::cout<<"circle info: "<<std::endl;
+    circleGen<<std::cout;
     
-	
-	 
+   cen.x_pos = width/2 + rad_circle;
+   cen.y_pos = height/2;
+   circleGen.setparams(rad_circle,cen,col);
+   circleGen.draw();
+   std::cout<<"circle info: "<<std::endl;
+    circleGen<<std::cout; 
+  	
 }
 
 
