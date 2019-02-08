@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <SDL2/SDL.h>
 #include <SDL_ttf.h>
 #include "frameGenerator.h"
@@ -53,6 +54,7 @@ void createArt(SDL_Window* window,SDL_Renderer* renderer,int width,int height)
 	//create an circle object
     point cen(width/2,height/2);
     color col(0,0,0,255);
+    std::vector<point> inter_points;
     
     int rad_circle = 200;
     
@@ -62,34 +64,49 @@ void createArt(SDL_Window* window,SDL_Renderer* renderer,int width,int height)
 	std::cout<<"circle info: "<<std::endl;
     circleGen<<std::cout;
     
-    //draw intersceting circles
-   col.r = 255; col.g = col.b = 0;col.a =255 ;
-   cen.y_pos = cen.y_pos + rad_circle;
-   circleGen.setparams(rad_circle,cen,col);
-   circleGen.draw();
-   std::cout<<"circle info: "<<std::endl;
-    circleGen<<std::cout;
-    
-   cen.y_pos = height/2 - rad_circle;
-   circleGen.setparams(rad_circle,cen,col);
-   circleGen.draw();
-   std::cout<<"circle info: "<<std::endl;
-    circleGen<<std::cout;
-    
-   cen.x_pos = width/2 - rad_circle;
-   cen.y_pos = height/2;
-   circleGen.setparams(rad_circle,cen,col);
-   circleGen.draw();
-   std::cout<<"circle info: "<<std::endl;
-    circleGen<<std::cout;
-    
-   cen.x_pos = width/2 + rad_circle;
-   cen.y_pos = height/2;
-   circleGen.setparams(rad_circle,cen,col);
-   circleGen.draw();
-   std::cout<<"circle info: "<<std::endl;
-    circleGen<<std::cout; 
+    //divide the circle into 12 equal parts
+	for(float theta = 0;theta<2*pi;theta = theta+(2*pi)/24)
+	{
+		int dx = rad_circle * std::cos(theta); // horizontal offset
+		int dy = rad_circle * std::sin(theta); // vertical offset
+		inter_points.push_back(point(cen.x_pos+dx,cen.y_pos+dy));
+		SDL_SetRenderDrawColor(renderer, 0,0,255,255);
+		SDL_RenderDrawPoint(renderer,cen.x_pos+dx,cen.y_pos+dy);
+		//SDL_RenderDrawLine(renderer,cen.x_pos,cen.y_pos,cen.x_pos+dx,cen.y_pos+dy);
+	}
+
+	SDL_SetRenderDrawColor(renderer, 255,0,0,255);
+	
+	SDL_RenderDrawLine(renderer,inter_points[1].x_pos,inter_points[1].y_pos,inter_points[11].x_pos,inter_points[11].y_pos);
+	SDL_RenderDrawLine(renderer,inter_points[1].x_pos,inter_points[1].y_pos,cen.x_pos,inter_points[18].y_pos);
+	SDL_RenderDrawLine(renderer,inter_points[11].x_pos,inter_points[11].y_pos,cen.x_pos,inter_points[18].y_pos);
+	
+	SDL_RenderDrawLine(renderer,inter_points[2].x_pos,inter_points[2].y_pos,inter_points[10].x_pos,inter_points[10].y_pos);
+	SDL_RenderDrawLine(renderer,inter_points[2].x_pos,inter_points[2].y_pos,cen.x_pos,inter_points[15].y_pos);
+	SDL_RenderDrawLine(renderer,inter_points[10].x_pos,inter_points[10].y_pos,cen.x_pos,inter_points[15].y_pos);
+	
+	SDL_RenderDrawLine(renderer,inter_points[3].x_pos,inter_points[3].y_pos,inter_points[9].x_pos,inter_points[9].y_pos);
+	SDL_RenderDrawLine(renderer,inter_points[3].x_pos,inter_points[3].y_pos,cen.x_pos,inter_points[14].y_pos);
+	SDL_RenderDrawLine(renderer,inter_points[9].x_pos,inter_points[9].y_pos,cen.x_pos,inter_points[14].y_pos);
+	
+	
+	SDL_RenderDrawLine(renderer,inter_points[13].x_pos,inter_points[13].y_pos,inter_points[23].x_pos,inter_points[23].y_pos);
+	SDL_RenderDrawLine(renderer,inter_points[13].x_pos,inter_points[13].y_pos,cen.x_pos,inter_points[6].y_pos);
+  	SDL_RenderDrawLine(renderer,inter_points[23].x_pos,inter_points[23].y_pos,cen.x_pos,inter_points[6].y_pos);
   	
+  	SDL_RenderDrawLine(renderer,inter_points[14].x_pos,inter_points[14].y_pos,inter_points[22].x_pos,inter_points[22].y_pos);
+	SDL_RenderDrawLine(renderer,inter_points[14].x_pos,inter_points[14].y_pos,cen.x_pos,inter_points[9].y_pos);
+  	SDL_RenderDrawLine(renderer,inter_points[22].x_pos,inter_points[22].y_pos,cen.x_pos,inter_points[9].y_pos);
+  	
+  	SDL_RenderDrawLine(renderer,inter_points[15].x_pos,inter_points[15].y_pos,inter_points[21].x_pos,inter_points[21].y_pos);
+	SDL_RenderDrawLine(renderer,inter_points[15].x_pos,inter_points[15].y_pos,cen.x_pos,inter_points[10].y_pos);
+  	SDL_RenderDrawLine(renderer,inter_points[21].x_pos,inter_points[21].y_pos,cen.x_pos,inter_points[10].y_pos);
+  	
+  	
+  	
+  	
+  
+
 }
 
 
