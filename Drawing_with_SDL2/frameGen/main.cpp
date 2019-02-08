@@ -6,11 +6,11 @@
 #include "circle.h"
 #include "triangle.h"
 
-const std::string TITLE = "shashi-shivaraju's design";
+const std::string TITLE = "shashi-shivaraju's geometrical design";
 const std::string NAME = "shonnah";
 
 const int WIDTH = 800;
-const int HEIGHT = 600;
+const int HEIGHT = 700;
 
 void drawCircle(SDL_Renderer* renderer,
   SDL_Point center, int radius, SDL_Color color) {
@@ -33,7 +33,7 @@ void writeName(SDL_Renderer* renderer) {
   if (font == NULL) {
     throw std::string("error: font not found");
   }
-  SDL_Color textColor = {0, 0, 0, 0};
+  SDL_Color textColor = {255,255,255,255};
   SDL_Surface* surface = 
     TTF_RenderText_Solid(font, TITLE.c_str(), textColor);
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -53,16 +53,39 @@ void createArt(SDL_Window* window,SDL_Renderer* renderer,int width,int height)
 {
 	//create an circle object
     point cen(width/2,height/2);
-    color col(0,0,0,255);
+    color col(0,0,255,255);
     std::vector<point> inter_points;
     
-    int rad_circle = 200;
-    
     //draw exterior circle
-    circle circleGen(renderer, window, rad_circle,cen,col);
-	circleGen.draw();	
-	std::cout<<"circle info: "<<std::endl;
+    int radius = 300;
+    circle circleGen(renderer, window, radius,cen,col);
+    circleGen.draw();
+    std::cout<<"circle info to demo overloading: "<<std::endl;
     circleGen<<std::cout;
+    
+    //draw interior circle
+    int rad_circle = 200;
+    circleGen.setparams(rad_circle,cen,col);
+	circleGen.draw();
+    
+    
+    //draw the intersecting circles
+    //draw overlapping circles
+    int rad =(radius-rad_circle)/2;
+    for(float theta = 0;theta<1.99*pi;theta = theta+0.03125)
+	{
+		int dx = (rad_circle+rad) * std::cos(theta) + width/2;
+		int dy = (rad_circle+rad) * std::sin(theta) + height/2; 
+		
+		cen.x_pos = dx;
+		cen.y_pos = dy;
+		circleGen.setparams(rad,cen,col);
+		circleGen.draw();	
+	} 
+    
+    /*center of the window*/
+    cen.x_pos = width/2;
+	cen.y_pos = height/2;
     
     //divide the circle into 12 equal parts
 	for(float theta = 0;theta<2*pi;theta = theta+(2*pi)/24)
@@ -70,43 +93,51 @@ void createArt(SDL_Window* window,SDL_Renderer* renderer,int width,int height)
 		int dx = rad_circle * std::cos(theta); // horizontal offset
 		int dy = rad_circle * std::sin(theta); // vertical offset
 		inter_points.push_back(point(cen.x_pos+dx,cen.y_pos+dy));
-		SDL_SetRenderDrawColor(renderer, 0,0,255,255);
-		SDL_RenderDrawPoint(renderer,cen.x_pos+dx,cen.y_pos+dy);
+		//SDL_SetRenderDrawColor(renderer, 0,0,255,255);
+		//SDL_RenderDrawPoint(renderer,cen.x_pos+dx,cen.y_pos+dy);
 		//SDL_RenderDrawLine(renderer,cen.x_pos,cen.y_pos,cen.x_pos+dx,cen.y_pos+dy);
 	}
+	
+	color c1(225,0,0,255); //red
+	//create a  triangle object
+	triangle triGen(renderer,window,point(inter_points[1].x_pos,inter_points[1].y_pos),
+						point(inter_points[11].x_pos,inter_points[11].y_pos),
+						point(cen.x_pos,inter_points[18].y_pos),c1);
+	std::cout<<triGen;
+	
+	//reusing the object
+	triGen.setparams(point(inter_points[13].x_pos,inter_points[13].y_pos),
+						point(inter_points[23].x_pos,inter_points[23].y_pos),
+						point(cen.x_pos,inter_points[6].y_pos),c1);
+	std::cout<<triGen;
 
-	SDL_SetRenderDrawColor(renderer, 255,0,0,255);
+	c1.r = 0;
+	c1.b = 255;
+	//reusing the object
+	triGen.setparams(point(inter_points[2].x_pos,inter_points[2].y_pos),
+						point(inter_points[10].x_pos,inter_points[10].y_pos),
+						point(cen.x_pos,inter_points[15].y_pos),c1);
+	std::cout<<triGen;
 	
-	SDL_RenderDrawLine(renderer,inter_points[1].x_pos,inter_points[1].y_pos,inter_points[11].x_pos,inter_points[11].y_pos);
-	SDL_RenderDrawLine(renderer,inter_points[1].x_pos,inter_points[1].y_pos,cen.x_pos,inter_points[18].y_pos);
-	SDL_RenderDrawLine(renderer,inter_points[11].x_pos,inter_points[11].y_pos,cen.x_pos,inter_points[18].y_pos);
+	//reusing the object
+	triGen.setparams(point(inter_points[14].x_pos,inter_points[14].y_pos),
+						point(inter_points[22].x_pos,inter_points[22].y_pos),
+						point(cen.x_pos,inter_points[9].y_pos),c1);
+	std::cout<<triGen;
 	
-	SDL_RenderDrawLine(renderer,inter_points[2].x_pos,inter_points[2].y_pos,inter_points[10].x_pos,inter_points[10].y_pos);
-	SDL_RenderDrawLine(renderer,inter_points[2].x_pos,inter_points[2].y_pos,cen.x_pos,inter_points[15].y_pos);
-	SDL_RenderDrawLine(renderer,inter_points[10].x_pos,inter_points[10].y_pos,cen.x_pos,inter_points[15].y_pos);
+	c1.b = 0;
+	c1.g = 255;
+	//reusing the object
+	triGen.setparams(point(inter_points[3].x_pos,inter_points[3].y_pos),
+						point(inter_points[9].x_pos,inter_points[9].y_pos),
+						point(cen.x_pos,inter_points[14].y_pos),c1);
+	std::cout<<triGen;
 	
-	SDL_RenderDrawLine(renderer,inter_points[3].x_pos,inter_points[3].y_pos,inter_points[9].x_pos,inter_points[9].y_pos);
-	SDL_RenderDrawLine(renderer,inter_points[3].x_pos,inter_points[3].y_pos,cen.x_pos,inter_points[14].y_pos);
-	SDL_RenderDrawLine(renderer,inter_points[9].x_pos,inter_points[9].y_pos,cen.x_pos,inter_points[14].y_pos);
-	
-	
-	SDL_RenderDrawLine(renderer,inter_points[13].x_pos,inter_points[13].y_pos,inter_points[23].x_pos,inter_points[23].y_pos);
-	SDL_RenderDrawLine(renderer,inter_points[13].x_pos,inter_points[13].y_pos,cen.x_pos,inter_points[6].y_pos);
-  	SDL_RenderDrawLine(renderer,inter_points[23].x_pos,inter_points[23].y_pos,cen.x_pos,inter_points[6].y_pos);
-  	
-  	SDL_RenderDrawLine(renderer,inter_points[14].x_pos,inter_points[14].y_pos,inter_points[22].x_pos,inter_points[22].y_pos);
-	SDL_RenderDrawLine(renderer,inter_points[14].x_pos,inter_points[14].y_pos,cen.x_pos,inter_points[9].y_pos);
-  	SDL_RenderDrawLine(renderer,inter_points[22].x_pos,inter_points[22].y_pos,cen.x_pos,inter_points[9].y_pos);
-  	
-  	SDL_RenderDrawLine(renderer,inter_points[15].x_pos,inter_points[15].y_pos,inter_points[21].x_pos,inter_points[21].y_pos);
-	SDL_RenderDrawLine(renderer,inter_points[15].x_pos,inter_points[15].y_pos,cen.x_pos,inter_points[10].y_pos);
-  	SDL_RenderDrawLine(renderer,inter_points[21].x_pos,inter_points[21].y_pos,cen.x_pos,inter_points[10].y_pos);
-  	
-  	
-  	
-  	
-  
-
+	//reusing the object
+	triGen.setparams(point(inter_points[15].x_pos,inter_points[15].y_pos),
+						point(inter_points[21].x_pos,inter_points[21].y_pos),
+						point(cen.x_pos,inter_points[10].y_pos),c1);
+	std::cout<<triGen;
 }
 
 
@@ -134,11 +165,21 @@ int main(void) {
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
     SDL_RenderClear(renderer);
 
-   // SDL_Point center = {640, 360};
-    //SDL_Color black = {0,0,0,255};
-  //  drawCircle(renderer, center, 50, black);
-  
-  
+	SDL_Rect r;
+	r.x = 0;
+	r.y = 0;
+	r.w = WIDTH;
+	r.h = HEIGHT;
+
+	// First set the blend mode so that alpha blending will work;
+	// the default blend mode is SDL_BLENDMODE_NONE!
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255);
+
+	// Render rect
+	SDL_RenderFillRect( renderer, &r );
+	
+	// draw the design
     createArt(window,renderer,WIDTH,HEIGHT);
 
     writeName(renderer);

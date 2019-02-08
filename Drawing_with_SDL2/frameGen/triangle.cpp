@@ -6,12 +6,12 @@ window(win),
 vertex1(p1.x_pos,p1.y_pos),
 vertex2(p2.x_pos,p2.y_pos),
 vertex3(p3.x_pos,p3.y_pos),
-paint(c.r,c.g,c.b,c.b)
+paint(c.r,c.g,c.b,c.a)
 {
-	std::cout<< "triangle vertices:"<<std::endl;
+	/*std::cout<< "triangle vertices:"<<std::endl;
 	std::cout<<"( "<<p1.x_pos<<" , "<<p1.y_pos<<" )"<<std::endl;
 	std::cout<<"( "<<p2.x_pos<<" , "<<p2.y_pos<<" )"<<std::endl;
-	std::cout<<"( "<<p3.x_pos<<" , "<<p3.y_pos<<" )"<<std::endl;
+	std::cout<<"( "<<p3.x_pos<<" , "<<p3.y_pos<<" )"<<std::endl;*/
 }
 
 

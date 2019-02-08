@@ -37,8 +37,7 @@ void FrameGenerator::makeFrame() {
   strm << "frames/" << USERNAME << ".bmp"; 
   std::string filename( strm.str() );
   std::cout << "Making frame: " << filename << std::endl;
-  int ret = SDL_SaveBMP(screenCap, filename.c_str());
-  std::cout<<ret<<std::endl;
+  SDL_SaveBMP(screenCap, filename.c_str());
   SDL_FreeSurface(screenCap);
 }
 

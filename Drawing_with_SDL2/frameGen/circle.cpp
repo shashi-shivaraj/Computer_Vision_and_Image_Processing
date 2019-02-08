@@ -14,8 +14,8 @@ paint(c.r,c.g,c.b,c.b)
 void circle::draw()
 {
 	int prev_x = 0,prev_y = 0;
-	SDL_SetRenderDrawColor(renderer, 255,0,0,255);
-	SDL_RenderDrawPoint(renderer,center.x_pos,center.y_pos);
+	//SDL_SetRenderDrawColor(renderer, 255,0,0,255);
+	//SDL_RenderDrawPoint(renderer,center.x_pos,center.y_pos);
 	SDL_SetRenderDrawColor(renderer, paint.r, paint.g, paint.b, paint.a);
 	for(float theta = 0;theta<=2*pi;theta = theta+0.01)
 	{
