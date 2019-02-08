@@ -93,9 +93,6 @@ void createArt(SDL_Window* window,SDL_Renderer* renderer,int width,int height)
 		int dx = rad_circle * std::cos(theta); // horizontal offset
 		int dy = rad_circle * std::sin(theta); // vertical offset
 		inter_points.push_back(point(cen.x_pos+dx,cen.y_pos+dy));
-		//SDL_SetRenderDrawColor(renderer, 0,0,255,255);
-		//SDL_RenderDrawPoint(renderer,cen.x_pos+dx,cen.y_pos+dy);
-		//SDL_RenderDrawLine(renderer,cen.x_pos,cen.y_pos,cen.x_pos+dx,cen.y_pos+dy);
 	}
 	
 	color c1(225,0,0,255); //red
@@ -185,7 +182,6 @@ int main(void) {
     writeName(renderer);
     SDL_RenderPresent(renderer);
     FrameGenerator frameGen(renderer, window, WIDTH, HEIGHT, NAME);
-    //FrameGenerator frameGen2 = frameGen;
     frameGen.makeFrame();
 
     SDL_Event event;

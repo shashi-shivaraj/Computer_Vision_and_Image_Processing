@@ -8,16 +8,16 @@ Project no: 2
 
 Project due date: Friday, February 8th, 2019
 
-Project description: 
+Project description:
 
+a)I implemented two classes named circle and triangle in order to draw their respective shapes.
+Using these classes I have implemented an geometric design.
 
-Your Image:  
-  (1) What is it? 
-  (2) What part of the image did you NOT draw?
-
+b)I have overloaded the output operator for circle class to print the circle info without using the get method
+and additionally have overloaded the output operator for trianlge class to perform draw operation.
 
 The easiest part of this project:
-
+Operator overloading and its usage.
 
 Problems that I had in completing this project:
-
+Filling colors to shapes which are not rectangle.
